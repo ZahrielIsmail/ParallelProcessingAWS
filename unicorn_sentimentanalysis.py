@@ -11,8 +11,7 @@ Original file is located at
 The corpus/dataset is imported and displayed.
 """
 
-from google.colab import drive
-drive.mount('/content/drive')
+
 
 import pandas as pd
 import matplotlib.pyplot as plt
