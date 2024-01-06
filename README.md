@@ -34,6 +34,36 @@ This project focuses on only Phase 2 of the methodology listed in the previous m
 - HTCondorManager
 - SubmissionHost   // Requires setup of an NFS Kernel in this instance
 - ExeuctionHost    //Requires At least two instances, used within this proejct is 3 Instances, all three instances require NFS Common and mounting folders from SubmissionHost instance
-- RDS Server     
+- RDS Server
+
+The project has set up various AWS instances for an HTCondor cluster, such as HTCondorManager, SubmissionHost, ExecutionHosts, and an RDS Server. It walks through the installation, configuration, and networking processes. It includes instructions for submitting the jobs, python files. This information serves as a practical roadmap for configuring and managing an HTCondor cluster in a cloud-based environment, with an emphasis on cluster architecture implementation.
+
+1.	Configuration of the Central Manager:
+•	Installation of HTCondor.
+•	Configuration commands setting the DAEMON_LIST and CONDOR_HOST.
+•	System restart to apply changes.
+•	Steps to create and configure a shared NFS directory.
+
+2.	Configuration of Submission Host
+•	Similar installation and configuration steps for HTCondor.
+•	Additional commands for mounting the Central Manager-created NFS shared directory.
+Job Submission:
+•	Input the Python script and a corresponding HTCondor job submission file.
+•	Submit and monitor the job.
+•	Install NFS common: sudo apt-get install nfs-common.
+•	Create a mount point: sudo mkdir -p /local/mount/point.
+•	Mount the NFS shared directory: sudo mount <central_manager_ip>:/home/condor_shared /local/mount/point.
+
+
+4.	Configuration of the Execution Host:
+Same configuration for the all execution hosts.
+•	Input the Python script as well as the HTCondor job submission file.
+•	HTCondor installation entails downloading and installing the HTCondor software on the required hosts.
+•	Configuration for Execution Hosts: Setting parameters and ensuring that the execution hosts are properly networked in order for them to work with HTCondor.
+•	NFS Directory Mounting Steps: This involves creating a Network File System (NFS) on the Submission Host and then mounting it on the Execution Hosts to share files and data across the cluster.
+
+
+
+
 
 ## **5) Results and Discussions**
