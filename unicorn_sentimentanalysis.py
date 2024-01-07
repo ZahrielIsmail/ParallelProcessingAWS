@@ -148,17 +148,19 @@ wc = WordCloud(max_words = 1000 , width = 1600 , height = 800, background_color 
 plt.imshow(wc)
 wc.to_file('Negative Tweets Word Cloud.png')
 
-X = processedtext
-y = sentiment
-
-
 """# 3.0 Machine Learning Approach"""
 # Labelling Dataset
 X = processedtext
 y = sentiment
 
+# Check unique classes in y
+print("Unique Classes:", np.unique(y))
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, shuffle=True)
+# Handle imbalanced classes using SMOTE
+smote = SMOTE(random_state=42)
+X_resampled, y_resampled = smote.fit_resample(X, y)
+
+X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.2, shuffle=True)
 
 #TF-IDF
 tfidf_vectorizer = TfidfVectorizer(use_idf=True)
