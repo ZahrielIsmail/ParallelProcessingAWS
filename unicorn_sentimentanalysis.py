@@ -13,7 +13,7 @@ The corpus/dataset is imported and displayed.
 
 
 import pandas as pd
-import numpu as np
+import numpy as np
 import matplotlib.pyplot as plt
 import re
 # nltk
