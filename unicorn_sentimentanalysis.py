@@ -159,10 +159,10 @@ print("Unique Classes:", np.unique(y))
 
 # Handle imbalanced classes using SMOTE
 smote = SMOTE(random_state=42)
-X_resampled, y_resampled = smote.fit_resample(X, y)
+X_resampled, y_resampled = smote.fit_resample(np.array(X).reshape(-1, 1), y)
 
 # Convert X_resampled to a DataFrame if it's not
-X_resampled = pd.DataFrame(X_resampled, columns=processedtext)
+X_resampled = pd.DataFrame(X_resampled, columns=['processedtext'])
 
 X_train, X_test, y_train, y_test = train_test_split(X_resampled, y_resampled, test_size=0.2, shuffle=True)
 
