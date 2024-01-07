@@ -146,15 +146,13 @@ plt.figure(figsize = (20,20))
 wc = WordCloud(max_words = 1000 , width = 1600 , height = 800, background_color = "white",
                collocations=False).generate(" ".join(neg_tweet))
 plt.imshow(wc)
+wc.to_file('Negative Tweets Word Cloud.png')
 
 X = processedtext
 y = sentiment
 
 
 """# 3.0 Machine Learning Approach"""
-y = sentiment
-# Handle imbalanced classes using SMOTE
-
 # Labelling Dataset
 X = processedtext
 y = sentiment
