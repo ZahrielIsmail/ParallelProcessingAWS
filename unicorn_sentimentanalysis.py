@@ -46,6 +46,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import confusion_matrix, classification_report
 import sklearn.metrics as metrics
+from sklearn.naive_bayes import MultinomialNB
+import xgboost as xgb
 
 # Importing the dataset
 DATASET_COLUMNS  = ["sentiment", "ids", "date", "flag", "user", "text"]
@@ -178,3 +180,16 @@ scikit_log_reg = LogisticRegression(verbose=1, solver='liblinear',random_state=0
 model_LR=scikit_log_reg.fit(X_train_vectors_tfidf,y_train)
 lr_predicted= model_LR.predict(X_test_vectors_tfidf)
 print("Logistic Regression with TFIDF:",metrics.accuracy_score(y_test, lr_predicted))
+
+#build the classifier model - multinomial naive bayes with tfidf
+naive_bayes_model = MultinomialNB()
+model_NB = naive_bayes_model.fit(X_train_vectors_tfidf, y_train)
+nb_predicted = model_NB.predict(X_test_vectors_tfidf)
+print("Naive Bayes with TFIDF:", metrics.accuracy_score(y_test, nb_predicted))
+
+#build the classifier model - xgboost with tfidf
+model_xgb = xgb.XGBClassifier(objective="binary:logistic", eval_metric="logloss", use_label_encoder=False)
+model_xgb.fit(X_train_vectors_tfidf, y_train)
+xgb_predicted = model_xgb.predict(X_test_vectors_tfidf)
+accuracy = accuracy_score(y_test, xgb_predicted)
+print("XGBoost with TFIDF:", accuracy)
