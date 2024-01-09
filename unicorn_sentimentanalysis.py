@@ -50,7 +50,7 @@ import sklearn.metrics as metrics
 # Importing the dataset
 DATASET_COLUMNS  = ["sentiment", "ids", "date", "flag", "user", "text"]
 DATASET_ENCODING = "ISO-8859-1"
-dataset = pd.read_excel('sentiment_shorten.xlsx',
+dataset = pd.read_excel('sentiment_shorten_balanced.xlsx',
                       names=DATASET_COLUMNS)
 
 # Removing the unnecessary columns.
