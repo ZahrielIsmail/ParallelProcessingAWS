@@ -27,7 +27,7 @@ Phase 2 Data Processing:
 2) Execution Host receives the files and conducts the modelling process, after modelling is complete, certain matrices are noted and exported to the RDS Database
 3) Matrices can be exported from the RDS Database for analysis outside of the AWS Ecosystem
 
-## **4) Server Setup**
+## **4.1) Server Setup**
 
 This project focuses on only Phase 2 of the methodology listed in the previous mentioned table. The components that require being setup on the AWS environment are 6 Instances of sizes stated Below.
 
@@ -58,5 +58,32 @@ Once all instances are ready, 'condor_status' command should be used to validate
 **Submitting Jobs**
 
 Following that, a job submission file job.submit is ready, with the executable script, output, error, and log files, as well as a queue command. Finally, the job is sent to the cluster to be processed. This step demonstrates the HTCondor setup's functionality and ability to manage and execute distributed computing tasks.
+
+## **4.2) Setup Github Connection
+
+To create a connection to Github to act as an external repository to the cluster, the user is required to create a user access token from their github account with the following permissions:
+- repo
+- write:packages
+- project
+
+Once the token has been generated, retrieve the clone HTTPS link for the github repository which can be acquired within the repository. After the token is generated and the HTTPS is acquired, utilize the EC2 Terminal for the Submission Host and use the following code:
+
+```
+git clone <repository https>
+```
+
+Once the code is run, the terminal will request the Username and Password associated with the repository, the username can be found in the first section of the HTTPS, example:https://github.com/JohnDoe/Parallel.git, the username should be JohnDoe, for the password request, utilize the User Access Token as the password functionality has been deprecated. To store the credentials for future push/pull requests use the following code:
+
+```
+git config credential.helper store
+git pull 
+```
+
+ To export data back into the repository use the following code:
+```
+git add .
+git commit -m "Committed from EC2" ##This is the comment for the commit
+git push 
+```
 
 ## **5) Results and Discussions**
