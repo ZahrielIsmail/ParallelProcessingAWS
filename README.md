@@ -29,18 +29,11 @@ Phase 2 Data Processing:
 
 ## **4.1) Server Setup**
 
-This project focuses on only Phase 2 of the methodology listed in the previous mentioned table. The components that require being setup on the AWS environment are 6 Instances of sizes stated Below.
-
-- HTCondorManager
-- SubmissionHost   // Requires setup of an NFS Kernel in this instance
-- ExeuctionHost    //Requires At least two instances, used within this proejct is 3 Instances, all three instances require NFS Common and mounting folders from SubmissionHost instance
-- RDS Server
-
 The project has set up various AWS instances for an HTCondor cluster, such as HTCondorManager, SubmissionHost, ExecutionHosts, and an RDS Server. It walks through the installation, configuration, and networking processes. It includes instructions for submitting the jobs, python files. This information serves as a practical roadmap for configuring and managing an HTCondor cluster in a cloud-based environment, with an emphasis on cluster architecture implementation.
 
 **Configuration of the Central Manager**
 
-The Central Manager in the HTCondor cluster was set up in a series of steps that began with HTCondor installation. This was accomplished by first updating the system packages before installing the HTCondor package.
+The Central Manager in the HTCondor cluster is set up in a series of steps that began with HTCondor installation. This is accomplished by first updating the system packages before installing the HTCondor package.
 ```
 sudo apt-get update
 ```
@@ -85,13 +78,63 @@ sudo systemctl restart condor
 
 **Configuration of Submission Host**
 
-HTCondor cluster setup on AWS includes a series of steps that begin with HTCondor installation. This entails first updating the system's packages and then installing HTCondor. Following installation, the HTCondor configuration is customized, specifically by adding MASTER and SCHEDD to the 'DAEMON_LIST' and identifying the central manager via the 'CONDOR_HOST' setting. The HTCondor service is restarted to ensure that these changes take effect. Establishing a shared NFS directory is also an important part of the setup. Installing NFS common tools, creating a designated mount point on the system, and then mounting the shared directory from the Central Manager to this point accomplishes this. These steps are critical for setting up the cluster for efficient task scheduling and resource sharing.
+HTCondor cluster setup on AWS for the Submission Host includes a series of steps that begin with HTCondor installation. Submission Host is responsible in submmiting the jobs. This entails first updating the system's packages and then installing HTCondor. 
+```
+sudo apt-get update
+sudo apt-get install htcondor -y
+```
+Following that, the HTCondor configuration is applied, specifically by adding MASTER and SCHEDD to the 'DAEMON_LIST' and identifying the central manager via the 'CONDOR_HOST' setting. 
+```
+echo "DAEMON_LIST = MASTER, SCHEDD" | sudo tee -a /etc/condor/condor_config.local
+echo "CONDOR_HOST = <central_manager_hostname>" | sudo tee -a /etc/condor/condor_config.local
+```
+The HTCondor service is restarted to ensure that these changes take effect. 
+```
+sudo systemctl restart condor
+```
+Establishing a shared NFS directory is also an important part of the setup. Installing NFS common tools, creating a designated mount point on the system.
+```
+# Mount the NFS shared directory
+sudo apt-get update
+sudo apt-get install nfs-common
+sudo mkdir -p /local/mount/point
+```
+Then, mount the shared directory from the Central Manager to this point accomplishes the steps.
+```
+sudo mount 172.31.54.189:/home/condor_shared /local/mount/point
+```
+Lastly, to restart the condor to ensure all changes are applied accordingly.
+```
+sudo systemctl restart condor
+```
+These steps are critical for setting up the cluster for efficient task scheduling and resource sharing.
 
 **Configuration of the Execution Host**
 
-The process of configuring the HTCondor cluster's Execution Hosts begins with updating the system and installing HTCondor. Following that, HTCondor is configured specifically for the execution host, including MASTER and STARTD in the 'DAEMON_LIST' and defining the 'CONDOR_HOST' with the hostname of the central manager. Mounting the NFS shared directory, which involves creating a local mount point and then linking it to the shared directory on the Central Manager, is a critical step in this setup. Finally, the HTCondor service on the Execution Host is restarted to apply these settings and ensure proper functionality.
-
+The process of configuring the HTCondor cluster's Execution Hosts begins with updating the system and installing HTCondor. 
+```
+sudo apt-get update
+sudo apt-get install htcondor -y
+```
+Following that, HTCondor is configured specifically for the execution host, including MASTER and STARTD in the 'DAEMON_LIST' and defining the 'CONDOR_HOST' with the hostname of the central manager. 
+```
+echo "DAEMON_LIST = MASTER, STARTD" | sudo tee -a /etc/condor/condor_config.local
+echo "CONDOR_HOST = <central_manager_hostname>" | sudo tee -a /etc/condor/condor_config.local
+```
+Mounting the NFS shared directory, which involves creating a local mount point and then linking it to the shared directory on the Central Manager, is an important step in this setup. 
+```
+# Mount the NFS shared directory
+sudo mkdir -p /local/mount/point
+sudo mount 172.31.54.189:/home/condor_shared /local/mount/point
+```
+Finally, the HTCondor service on the Execution Host is restarted to apply these settings and ensure proper functionality.
+```
+sudo systemctl restart condor
+```
 Once all instances are ready, 'condor_status' command should be used to validate the status and ensure that everything is working properly.
+```
+condor status 
+```
 
 **Submitting Jobs**
 
