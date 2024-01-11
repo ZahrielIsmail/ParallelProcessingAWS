@@ -14,7 +14,7 @@ HTCondor Cluster built in AWS to do Sentiment Analysis on X (Formerly known as T
 
 ## **3) Methodology**
 
-![WQD7008](https://github.com/ZahrielIsmail/ParallelProcessingAWS/assets/155151831/19a37449-954e-4b07-9a51-57fe9949a38a)
+![WQD7008]([https://github.com/ZahrielIsmail/ParallelProcessingAWS/assets/155151831/19a37449-954e-4b07-9a51-57fe9949a38a](https://github.com/ZahrielIsmail/ParallelProcessingAWS/blob/main/WQD7008.jpg))
 
 Phase 1 Data Scrapping:
 
