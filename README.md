@@ -51,10 +51,10 @@ After that, restart the HTCondor to apply the changes.
 sudo systemctl restart condor
 ```
 Furthermore, the NFS is set in HTCondor for shared file access across different nodes in the distributed computing environment.
-
 The NFS configuration on the Central Manager is stated below: 
 
 Step 1: Create a Shared Directory on the Central Manager
+
 This step is necessary for data sharing and efficient cluster operation.
 ```
 sudo mkdir -p /home/condor_shared
