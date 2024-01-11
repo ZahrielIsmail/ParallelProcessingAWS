@@ -50,7 +50,7 @@ After that, restart the HTCondor to apply the changes.
 ```
 sudo systemctl restart condor
 ```
-Furthermore, the 'CONDOR_HOST' was set to the Central Manager's hostname to ensure proper identification within the cluster network. 
+Furthermore, the NFS is set in HTCondor for shared file access across different nodes in the distributed computing environment.
 
 The NFS configuration on the Central Manager is stated below: 
 
