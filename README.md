@@ -140,6 +140,27 @@ condor status
 
 Following that, a job submission file job.submit is ready, with the executable script, output, error, and log files, as well as a queue command. Finally, the job is sent to the cluster to be processed. This step demonstrates the HTCondor setup's functionality and ability to manage and execute distributed computing tasks.
 
+In detail, to submit three Python files concurrently in AWS using HTCondor, typically by using a HTCondor submit file with the queue directive. 
+```
+executable = $(filename)
+output = output_$(Process).txt
+error = error_$(Process).txt
+log = log.txt
+
+filename = script1.py
+queue
+
+filename = script2.py
+queue
+
+filename = script3.py
+queue
+```
+Submit the jobs using HTCondor
+```
+condor_submit submit_jobs.condor
+```
+
 ## **4.2) Setup Github Connection
 
 To create a connection to Github to act as an external repository to the cluster, the user is required to create a user access token from their github account with the following permissions:
