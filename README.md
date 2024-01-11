@@ -40,10 +40,48 @@ The project has set up various AWS instances for an HTCondor cluster, such as HT
 
 **Configuration of the Central Manager**
 
-The Central Manager in our HTCondor cluster was set up in a series of steps that began with HTCondor installation. This was accomplished by first updating the system packages before installing the HTCondor package with the **sudo apt-get** command, then install the condor with  **install htcondor -y** command. Following installation, the HTCondor was configured to define its role within the cluster, including assigning it the roles of Master, Collector, and Negotiator. The necessary configuration lines were added to the condor_config.local file. 
-Furthermore, the 'CONDOR_HOST' was set to the Central Manager's hostname to ensure proper identification within the cluster network. Besides, steps were taken to create and configure a shared NFS directory, which is necessary for data sharing and efficient cluster operation. This configuration enables seamless communication and file sharing between the HTCondor cluster's various components. Finally, the HTCondor service was restarted to ensure that the Central Manager was properly configured and operational.
+The Central Manager in the HTCondor cluster was set up in a series of steps that began with HTCondor installation. This was accomplished by first updating the system packages before installing the HTCondor package.
+```
+sudo apt-get update
+```
+Then, to proceed with the HTCondor installation 
+```
+sudo apt-get install htcondor -y
+```
+Following installation, the HTCondor is configured to define its role within the cluster, including assigning it the roles of Master, Collector, and Negotiator. 
+```
+echo "DAEMON_LIST = MASTER, COLLECTOR, NEGOTIATOR" | sudo tee -a /etc/condor/condor_config.local
+echo "CONDOR_HOST = <central_manager_hostname>" | sudo tee -a /etc/condor/condor_config.local
+```
+After that, restart the HTCondor to apply the changes.
+```
+sudo systemctl restart condor
+```
+Furthermore, the 'CONDOR_HOST' was set to the Central Manager's hostname to ensure proper identification within the cluster network. 
 
-The Central Manager includes steps for creating and configuring a shared directory in the HTCondor cluster setup. This procedure begins with the command **'sudo mkdir -p /home/condor_shared**'. Following that, command **'sudo exportfs -ra'** to apply the changes,**'sudo exportfs -v'** to verify the export's success, and **'sudo systemctl enable --now nfs-server'** to ensure the NFS server is operational. These steps are critical for creating a shared environment for efficient data access and management throughout the cluster.
+The NFS configuration on the Central Manager is stated below: 
+
+Step 1: Create a Shared Directory on the Central Manager
+This step is necessary for data sharing and efficient cluster operation.
+```
+sudo mkdir -p /home/condor_shared
+```
+Step 2: Apply the changes by running
+```
+sudo exportfs -ra
+```
+Step 3: Verify that the export was successful by running
+```
+sudo exportfs -v
+```
+Steo 4: Ensure that the NFS server is running
+```
+sudo systemctl enable --now nfs-server
+```
+These configuration enables seamless communication and file sharing between the HTCondor cluster's various components. Finally, the HTCondor service is needed to get restarted again to ensure that the Central Manager is properly configured and operational.
+```
+sudo systemctl restart condor
+```
 
 **Configuration of Submission Host**
 
