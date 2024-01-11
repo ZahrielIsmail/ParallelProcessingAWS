@@ -29,7 +29,7 @@ Phase 2 Data Processing:
 
 ## **4.1) Server Setup**
 
-The project has set up various AWS instances for an HTCondor cluster, such as HTCondorManager, SubmissionHost, ExecutionHosts, and an RDS Server. It walks through the installation, configuration, and networking processes. It includes instructions for submitting the jobs, python files. This information serves as a practical roadmap for configuring and managing an HTCondor cluster in a cloud-based environment, with an emphasis on cluster architecture implementation.
+This project has set up various AWS instances for an HTCondor cluster, such as HTCondorManager, SubmissionHost, ExecutionHosts, and an RDS Server. Steps below walks through the installation, configuration, and networking processes. It includes instructions for submitting the jobs, python files. These information serves as a practical roadmap for configuring and managing an HTCondor cluster in a cloud-based environment, with an emphasis on cluster architecture implementation.
 
 **Configuration of the Central Manager**
 
