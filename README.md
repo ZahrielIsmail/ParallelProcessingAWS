@@ -39,7 +39,7 @@ sudo apt-get update
 ```
 Then, to proceed with the HTCondor installation 
 ```
-sudo apt-get install htcondor -y
+sudo apt-get install condor -y
 ```
 Following installation, the HTCondor is configured to define its role within the cluster, including assigning it the roles of Master, Collector, and Negotiator. 
 ```
