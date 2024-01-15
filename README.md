@@ -59,17 +59,19 @@ This step is necessary for data sharing and efficient cluster operation.
 ```
 sudo mkdir -p /home/condor_shared
 ```
-Step 2: Edit the files 
-sudo nano /etc/exports 
-Step 2: Apply the changes by running
+Step 2: Make changes to the NFS (Network File System) export configuration.
+```
+sudo nano /etc/exports
+```
+Step 3: Apply the changes by running
 ```
 sudo exportfs -ra
 ```
-Step 3: Verify that the export was successful by running
+Step 4: Verify that the export was successful by running
 ```
 sudo exportfs -v
 ```
-Steo 4: Ensure that the NFS server is running
+Steo 5: Ensure that the NFS server is running
 ```
 sudo systemctl enable --now nfs-server
 ```
