@@ -59,6 +59,8 @@ This step is necessary for data sharing and efficient cluster operation.
 ```
 sudo mkdir -p /home/condor_shared
 ```
+Step 2: Edit the files 
+sudo nano /etc/exports 
 Step 2: Apply the changes by running
 ```
 sudo exportfs -ra
