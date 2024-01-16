@@ -1,0 +1,1 @@
+import pandas as pd\n\nfile1 = pd.read_excel('Sentiment 1.xlsx')\nfile2 = pd.read_excel('Sentiment 2.xlsx')\nfile3 = pd.read_excel('Sentiment 3.xlsx')\nmerged_data = pd.concat([file1, file2, file3], ignore_index=True)\nmerged_data.to_excel('sentiment_fullcorpus.xlsx', index=False)
