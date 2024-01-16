@@ -39,7 +39,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 # Importing the df
 columns  = ["sentiment", "ids", "date", "flag", "user", "text"]
 encode = "ISO-8859-1"
-df = pd.read_csv('sentiment_fullcorpus.csv', encoding=encode, names=columns)
+df = pd.read_csv('sentiment_shorten_balanced.csv', encoding=encode, names=columns)
 
 
 # Removing the unnecessary columns.
