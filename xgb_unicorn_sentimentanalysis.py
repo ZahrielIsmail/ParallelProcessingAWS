@@ -226,4 +226,3 @@ plt.savefig('XGBoost Confusion Matrix.png', bbox_inches='tight')
 print(f'\nXGBoost Model Fitting and Prediction Complete.')
 print(f'Time Taken: {round(time.time()-t)} seconds')
 
-t = time.time()
