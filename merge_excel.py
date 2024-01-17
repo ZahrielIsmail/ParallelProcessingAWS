@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import pandas as pd
 
 # Adjust the chunk_size based on your available memory

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """MasterFileUnicornSentiment.ipynb
 
@@ -38,8 +39,8 @@ from sklearn.metrics import confusion_matrix, classification_report
 
 # Importing the df
 columns  = ["sentiment", "ids", "date", "flag", "user", "text"]
-encode = "ISO-8859-1"
-df = pd.read_csv('sentiment_fullcorpus.csv', encoding=encode, names=columns)
+#encode = "ISO-8859-1"
+df = pd.read_excel('sentiment_shorten_balanced.xlsx', names=columns)
 
 
 # Removing the unnecessary columns.
@@ -50,6 +51,12 @@ df['sentiment'] = df['sentiment'].replace(4,1)
 # Plotting the distribution for df.
 ax = df.groupby('sentiment').count().plot(kind='bar', title='Distribution of data',
                                                legend=False)
+# Assuming you have two categories (Negative and Positive)
+num_categories = 2
+
+# Set the tick locations
+ax.set_xticks(range(num_categories))
+
 ax.set_xticklabels(['Negative','Positive'], rotation=0)
 
 # Storing data in lists.
@@ -133,7 +140,7 @@ df['processed_text'] = processedtext
 df.drop('text', axis = 1)
 
 t = time.time()
-data_pos = processedtext[800000:]
+data_pos = processedtext
 wc = WordCloud(max_words = 1000 ,
                width = 1600 ,
                height = 800,
@@ -148,7 +155,7 @@ print(f'Positive Word Cloud Generated.')
 print(f'Time Taken: {round(time.time()-t)} seconds')
 
 t = time.time()
-data_neg = processedtext[:800000]
+data_neg = processedtext
 plt.figure(figsize = (20,20))
 wc = WordCloud(max_words = 1000 ,
                width = 1600 ,
