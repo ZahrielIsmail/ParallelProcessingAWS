@@ -38,9 +38,9 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics import confusion_matrix, classification_report
 
 # Importing the df
-columns  = ["sentiment", "ids", "date", "flag", "user", "text"]
+#columns  = ["sentiment", "ids", "date", "flag", "user", "text"]
 #encode = "ISO-8859-1"
-df = pd.read_excel('sentiment_shorten_balanced.xlsx', names=columns)
+df = pd.read_excel('local_dataset.xlsx')
 
 
 # Removing the unnecessary columns.
@@ -96,33 +96,37 @@ def preprocess(textdata):
     wordLemm = WordNetLemmatizer()
 
     # Defining regex patterns.
-    urlPattern        = r"((http://)[^ ]*|(https://)[^ ]*|( www\.)[^ ]*)"
-    userPattern       = '@[^\s]+'
-    alphaPattern      = "[^a-zA-Z0-9]"
-    sequencePattern   = r"(.)\1\1+"
+    urlPattern = r"((http://)[^ ]*|(https://)[^ ]*|( www\.)[^ ]*)"
+    userPattern = '@[^\s]+'
+    alphaPattern = "[^a-zA-Z0-9]"
+    sequencePattern = r"(.)\1\1+"
     seqReplacePattern = r"\1\1"
 
     for tweet in textdata:
+        #if isinstance(tweet, float):  # Check if the element is a float
+         #   continue  # Skip processing if it's a float
+
+        tweet = str(tweet)  # Convert to string to handle other data types
         tweet = tweet.lower()
 
-        # Replace all URls with 'URL'
-        tweet = re.sub(urlPattern,' URL',tweet)
+        # Replace all URLs with 'URL'
+        tweet = re.sub(urlPattern, ' URL', tweet)
         # Replace all emojis.
         for emoji in emojis.keys():
             tweet = tweet.replace(emoji, "EMOJI" + emojis[emoji])
-        # Replace all non alphabets.
+        # Replace all non-alphabets.
         tweet = re.sub(alphaPattern, " ", tweet)
-        # Replace 3 or more consecutive letters by 2 letter.
+        # Replace 3 or more consecutive letters by 2 letters.
         tweet = re.sub(sequencePattern, seqReplacePattern, tweet)
 
         tweetwords = ''
         for word in tweet.split():
             # Checking if the word is a stopword.
-            #if word not in stopwordlist:
-            if len(word)>1:
+            # if word not in stopwordlist:
+            if len(word) > 1:
                 # Lemmatizing the word.
                 word = wordLemm.lemmatize(word)
-                tweetwords += (word+' ')
+                tweetwords += (word + ' ')
 
         processedText.append(tweetwords)
 
@@ -135,12 +139,13 @@ print(f'Text Preprocessing complete.')
 print(f'Time Taken: {round(time.time()-t)} seconds')
 
 # Add a new column 'processed_text' to the df
+
 df['processed_text'] = processedtext
 
 df.drop('text', axis = 1)
 
 t = time.time()
-data_pos = processedtext
+data_pos = processedtext[266667:]
 wc = WordCloud(max_words = 1000 ,
                width = 1600 ,
                height = 800,
@@ -155,7 +160,7 @@ print(f'Positive Word Cloud Generated.')
 print(f'Time Taken: {round(time.time()-t)} seconds')
 
 t = time.time()
-data_neg = processedtext
+data_neg = processedtext[:266667]
 plt.figure(figsize = (20,20))
 wc = WordCloud(max_words = 1000 ,
                width = 1600 ,
@@ -191,7 +196,32 @@ model_LR = scikit_log_reg.fit(X_train_vectors_tfidf,y_train)
 lr_predicted = model_LR.predict(X_test_vectors_tfidf)
 
 print(classification_report(y_test, lr_predicted))
-print("Confusion Matrix: \n", confusion_matrix(y_test, lr_predicted))
+conf_matrix = confusion_matrix(y_test, lr_predicted)
+print("Confusion Matrix: \n", conf_matrix)
+
+# Plot and save the confusion matrix as a PNG with annotations and distinct styling
+plt.figure(figsize=(8, 6))
+plt.imshow(conf_matrix, interpolation='nearest', cmap=plt.cm.Blues, vmin=0, vmax=np.max(conf_matrix) + 1)
+plt.title('Logistic Regression Confusion Matrix', fontsize=16)
+plt.colorbar()
+
+classes = sorted(set(y_test))
+tick_marks = np.arange(len(classes))
+plt.xticks(tick_marks, classes, rotation=45, fontsize=12)
+plt.yticks(tick_marks, classes, fontsize=12)
+
+plt.xlabel('Predicted Label', fontsize=14)
+plt.ylabel('True Label', fontsize=14)
+
+# Add numerical values to the plot with distinct coloring
+for i in range(len(classes)):
+    for j in range(len(classes)):
+        plt.text(j, i, str(conf_matrix[i, j]), ha='center', va='center', color='white' if conf_matrix[i, j] > np.max(conf_matrix) / 2 else 'black', fontsize=12)
+
+plt.tight_layout()
+
+# Save the confusion matrix as a PNG file
+plt.savefig('Logistic Regression Confusion Matrix.png', bbox_inches='tight')
 
 print(f'\nLogistic Regression Model Fitting and Prediction Complete.')
 print(f'Time Taken: {round(time.time()-t)} seconds')
@@ -203,7 +233,32 @@ model_xgb.fit(X_train_vectors_tfidf, y_train)
 xgb_predicted = model_xgb.predict(X_test_vectors_tfidf)
 
 print(classification_report(y_test, xgb_predicted))
-print("Confusion Matrix: \n", confusion_matrix(y_test, xgb_predicted))
+conf_matrix = confusion_matrix(y_test, xgb_predicted)
+print("Confusion Matrix: \n", conf_matrix)
+
+# Plot and save the confusion matrix as a PNG with annotations and distinct styling
+plt.figure(figsize=(8, 6))
+plt.imshow(conf_matrix, interpolation='nearest', cmap=plt.cm.Blues, vmin=0, vmax=np.max(conf_matrix) + 1)
+plt.title('XGBoost Confusion Matrix', fontsize=16)
+plt.colorbar()
+
+classes = sorted(set(y_test))
+tick_marks = np.arange(len(classes))
+plt.xticks(tick_marks, classes, rotation=45, fontsize=12)
+plt.yticks(tick_marks, classes, fontsize=12)
+
+plt.xlabel('Predicted Label', fontsize=14)
+plt.ylabel('True Label', fontsize=14)
+
+# Add numerical values to the plot with distinct coloring
+for i in range(len(classes)):
+    for j in range(len(classes)):
+        plt.text(j, i, str(conf_matrix[i, j]), ha='center', va='center', color='white' if conf_matrix[i, j] > np.max(conf_matrix) / 2 else 'black', fontsize=12)
+
+plt.tight_layout()
+
+# Save the confusion matrix as a PNG file
+plt.savefig('XGBoost Confusion Matrix.png', bbox_inches='tight')
 
 print(f'\nXGBoost Model Fitting and Prediction Complete.')
 print(f'Time Taken: {round(time.time()-t)} seconds')
@@ -215,7 +270,33 @@ model_NB = naive_bayes_model.fit(X_train_vectors_tfidf, y_train)
 nb_predicted = model_NB.predict(X_test_vectors_tfidf)
 
 print(classification_report(y_test, nb_predicted))
-print("Confusion Matrix: \n", confusion_matrix(y_test, nb_predicted))
+conf_matrix = confusion_matrix(y_test, nb_predicted)
+print("Confusion Matrix: \n", conf_matrix)
+
+
+# Plot and save the confusion matrix as a PNG with annotations and distinct styling
+plt.figure(figsize=(8, 6))
+plt.imshow(conf_matrix, interpolation='nearest', cmap=plt.cm.Blues, vmin=0, vmax=np.max(conf_matrix) + 1)
+plt.title('Naive Bayes Confusion Matrix', fontsize=16)
+plt.colorbar()
+
+classes = sorted(set(y_test))
+tick_marks = np.arange(len(classes))
+plt.xticks(tick_marks, classes, rotation=45, fontsize=12)
+plt.yticks(tick_marks, classes, fontsize=12)
+
+plt.xlabel('Predicted Label', fontsize=14)
+plt.ylabel('True Label', fontsize=14)
+
+# Add numerical values to the plot with distinct coloring
+for i in range(len(classes)):
+    for j in range(len(classes)):
+        plt.text(j, i, str(conf_matrix[i, j]), ha='center', va='center', color='white' if conf_matrix[i, j] > np.max(conf_matrix) / 2 else 'black', fontsize=12)
+
+plt.tight_layout()
+
+# Save the confusion matrix as a PNG file
+plt.savefig('Naive Bayes Confusion Matrix.png', bbox_inches='tight')
 
 print(f'\nNaive Bayes Model Fitting and Prediction Complete.')
 print(f'Time Taken: {round(time.time()-t)} seconds')
