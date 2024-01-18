@@ -1,17 +1,17 @@
 executable = $(filename)
-
 output = output_$(Process).txt
-
 error = error_$(Process).txt
-
 requirements = True
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 transfer_input_files = /home/ubuntu/mounter/sentiment_shorten_balanced.csv
-
-
 log = log.txt
  
-filename = unicorn_sentimentanalysis.py
+filename = xgb_unicorn_sentimentanalysis.py
+queue
 
+filename = nb_unicorn_sentimentanalysis.py
+queue
+
+filename = lr_unicorn_sentimentanalysis.py
 queue
