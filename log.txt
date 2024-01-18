@@ -846,3 +846,126 @@
 
 	Job terminated of its own accord at 2024-01-17T07:16:47Z with exit-code 1.
 ...
+000 (022.000.000) 2024-01-18 03:37:38 Job submitted from host: <172.31.36.242:9618?addrs=172.31.36.242-9618&alias=ip-172-31-36-242.ec2.internal&noUDP&sock=schedd_413_dcb4>
+...
+000 (022.001.000) 2024-01-18 03:37:38 Job submitted from host: <172.31.36.242:9618?addrs=172.31.36.242-9618&alias=ip-172-31-36-242.ec2.internal&noUDP&sock=schedd_413_dcb4>
+...
+000 (022.002.000) 2024-01-18 03:37:38 Job submitted from host: <172.31.36.242:9618?addrs=172.31.36.242-9618&alias=ip-172-31-36-242.ec2.internal&noUDP&sock=schedd_413_dcb4>
+...
+040 (022.001.000) 2024-01-18 03:37:38 Started transferring input files
+	Transferring to host: <172.31.83.63:9618?addrs=172.31.83.63-9618&alias=ip-172-31-83-63.ec2.internal&noUDP&sock=slot1_1_585_ef71_3>
+...
+040 (022.000.000) 2024-01-18 03:37:38 Started transferring input files
+	Transferring to host: <172.31.80.84:9618?addrs=172.31.80.84-9618&alias=ip-172-31-80-84.ec2.internal&noUDP&sock=slot1_1_593_9271_3>
+...
+040 (022.002.000) 2024-01-18 03:37:38 Started transferring input files
+	Transferring to host: <172.31.90.79:9618?addrs=172.31.90.79-9618&alias=ip-172-31-90-79.ec2.internal&noUDP&sock=slot1_1_592_de11_3>
+...
+040 (022.001.000) 2024-01-18 03:37:38 Finished transferring input files
+...
+040 (022.000.000) 2024-01-18 03:37:38 Finished transferring input files
+...
+040 (022.002.000) 2024-01-18 03:37:38 Finished transferring input files
+...
+001 (022.001.000) 2024-01-18 03:37:39 Job executing on host: <172.31.83.63:9618?addrs=172.31.83.63-9618&alias=ip-172-31-83-63.ec2.internal&noUDP&sock=startd_431_3568>
+	SlotName: slot1_1@ip-172-31-83-63.ec2.internal
+	CondorScratchDir = "/var/lib/condor/execute/dir_1511"
+	Cpus = 1
+	Disk = 4465
+	Memory = 128
+...
+001 (022.002.000) 2024-01-18 03:37:39 Job executing on host: <172.31.90.79:9618?addrs=172.31.90.79-9618&alias=ip-172-31-90-79.ec2.internal&noUDP&sock=startd_434_4431>
+	SlotName: slot1_1@ip-172-31-90-79.ec2.internal
+	CondorScratchDir = "/var/lib/condor/execute/dir_1138"
+	Cpus = 1
+	Disk = 4465
+	Memory = 128
+...
+001 (022.000.000) 2024-01-18 03:37:39 Job executing on host: <172.31.80.84:9618?addrs=172.31.80.84-9618&alias=ip-172-31-80-84.ec2.internal&noUDP&sock=startd_429_d638>
+	SlotName: slot1_1@ip-172-31-80-84.ec2.internal
+	CondorScratchDir = "/var/lib/condor/execute/dir_1243"
+	Cpus = 1
+	Disk = 4227
+	Memory = 128
+...
+006 (022.001.000) 2024-01-18 03:37:44 Image size of job updated: 2136
+	1  -  MemoryUsage of job (MB)
+	8  -  ResidentSetSize of job (KB)
+...
+006 (022.002.000) 2024-01-18 03:37:44 Image size of job updated: 1908
+	1  -  MemoryUsage of job (MB)
+	8  -  ResidentSetSize of job (KB)
+...
+006 (022.000.000) 2024-01-18 03:37:44 Image size of job updated: 1776
+	1  -  MemoryUsage of job (MB)
+	8  -  ResidentSetSize of job (KB)
+...
+040 (022.001.000) 2024-01-18 03:37:44 Started transferring output files
+...
+040 (022.002.000) 2024-01-18 03:37:44 Started transferring output files
+...
+040 (022.001.000) 2024-01-18 03:37:44 Finished transferring output files
+...
+005 (022.001.000) 2024-01-18 03:37:44 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	12  -  Run Bytes Sent By Job
+	72  -  Run Bytes Received By Job
+	12  -  Total Bytes Sent By Job
+	72  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :     0.00        1         1 
+	   Disk (KB)            :    14           1      4465 
+	   Memory (MB)          :     1           1       128 
+	   TimeExecute (s)      :     5                       
+	   TimeSlotBusy (s)     :     6                       
+
+	Job terminated of its own accord at 2024-01-18T03:37:44Z with exit-code 0.
+...
+040 (022.000.000) 2024-01-18 03:37:44 Started transferring output files
+...
+040 (022.002.000) 2024-01-18 03:37:44 Finished transferring output files
+...
+040 (022.000.000) 2024-01-18 03:37:44 Finished transferring output files
+...
+005 (022.002.000) 2024-01-18 03:37:44 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	12  -  Run Bytes Sent By Job
+	72  -  Run Bytes Received By Job
+	12  -  Total Bytes Sent By Job
+	72  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        1         1 
+	   Disk (KB)            :       14        1      4465 
+	   Memory (MB)          :        1        1       128 
+	   TimeExecute (s)      :        5                    
+	   TimeSlotBusy (s)     :        6                    
+
+	Job terminated of its own accord at 2024-01-18T03:37:44Z with exit-code 0.
+...
+005 (022.000.000) 2024-01-18 03:37:44 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	12  -  Run Bytes Sent By Job
+	72  -  Run Bytes Received By Job
+	12  -  Total Bytes Sent By Job
+	72  -  Total Bytes Received By Job
+	Partitionable Resources :    Usage  Request Allocated 
+	   Cpus                 :        0        1         1 
+	   Disk (KB)            :       14        1      4227 
+	   Memory (MB)          :        1        1       128 
+	   TimeExecute (s)      :        5                    
+	   TimeSlotBusy (s)     :        6                    
+
+	Job terminated of its own accord at 2024-01-18T03:37:44Z with exit-code 0.
+...

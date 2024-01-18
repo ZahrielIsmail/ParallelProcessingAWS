@@ -1,0 +1,74 @@
+[nltk_data] Downloading package wordnet to /home/ubuntu/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+Text Preprocessing complete.
+Time Taken: 39 seconds
+Positive Word Cloud Generated.
+Time Taken: 20 seconds
+Negative Word Cloud Generated.
+Time Taken: 20 seconds
+TF-IDF Vectorization Complete.
+Time Taken: 8 seconds
+RUNNING THE L-BFGS-B CODE
+
+           * * *
+
+Machine precision = 2.220D-16
+ N =       202617     M =           10
+ This problem is unconstrained.
+
+At X0         0 variables are exactly at the bounds
+
+At iterate    0    f=  2.40291D+05    |proj g|=  1.25351D+03
+
+At iterate   50    f=  1.33636D+05    |proj g|=  5.50772D+01
+
+At iterate  100    f=  1.30436D+05    |proj g|=  2.20007D+02
+
+At iterate  150    f=  1.29776D+05    |proj g|=  1.01588D+01
+
+At iterate  200    f=  1.29631D+05    |proj g|=  7.25489D+01
+
+At iterate  250    f=  1.29576D+05    |proj g|=  1.34503D+01
+
+At iterate  300    f=  1.29566D+05    |proj g|=  4.38773D+00
+
+At iterate  350    f=  1.29562D+05    |proj g|=  6.04339D+00
+
+At iterate  400    f=  1.29561D+05    |proj g|=  1.18600D+00
+
+At iterate  450    f=  1.29560D+05    |proj g|=  1.01820D+01
+
+At iterate  500    f=  1.29560D+05    |proj g|=  4.99551D+00
+
+           * * *
+
+Tit   = total number of iterations
+Tnf   = total number of function evaluations
+Tnint = total number of segments explored during Cauchy searches
+Skip  = number of BFGS updates skipped
+Nact  = number of active bounds at final generalized Cauchy point
+Projg = norm of the final projected gradient
+F     = final function value
+
+           * * *
+
+   N    Tit     Tnf  Tnint  Skip  Nact     Projg        F
+*****    533    626      1     0     0   3.422D-01   1.296D+05
+  F =   129559.97196975999     
+
+CONVERGENCE: REL_REDUCTION_OF_F_<=_FACTR*EPSMCH             
+              precision    recall  f1-score   support
+
+           0       0.79      0.78      0.79     93338
+           1       0.79      0.80      0.79     93329
+
+    accuracy                           0.79    186667
+   macro avg       0.79      0.79      0.79    186667
+weighted avg       0.79      0.79      0.79    186667
+
+Confusion Matrix: 
+ [[73160 20178]
+ [18967 74362]]
+
+Logistic Regression Model Fitting and Prediction Complete.
+Time Taken: 44 seconds

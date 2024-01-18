@@ -1,0 +1,15 @@
+executable = $(filename)
+
+output = output_$(Process).txt
+
+error = error_$(Process).txt
+
+log = log.txt
+
+filename = sleep.py
+
+queue
+
+queue
+
+queue

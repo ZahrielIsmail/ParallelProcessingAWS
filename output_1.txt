@@ -1,0 +1,25 @@
+[nltk_data] Downloading package wordnet to /home/ubuntu/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+Text Preprocessing complete.
+Time Taken: 39 seconds
+Positive Word Cloud Generated.
+Time Taken: 18 seconds
+Negative Word Cloud Generated.
+Time Taken: 21 seconds
+TF-IDF Vectorization Complete.
+Time Taken: 8 seconds
+              precision    recall  f1-score   support
+
+           0       0.74      0.82      0.78     93128
+           1       0.80      0.71      0.75     93539
+
+    accuracy                           0.77    186667
+   macro avg       0.77      0.77      0.77    186667
+weighted avg       0.77      0.77      0.77    186667
+
+Confusion Matrix: 
+ [[76368 16760]
+ [26664 66875]]
+
+Naive Bayes Model Fitting and Prediction Complete.
+Time Taken: 1 seconds
