@@ -5,7 +5,7 @@ requirements = True
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
 transfer_input_files = /home/ubuntu/mounter/sentiment_shorten_balanced.csv
-log = log.txt
+log = log.tx
  
 filename = xgb_unicorn_sentimentanalysis.py
 queue
