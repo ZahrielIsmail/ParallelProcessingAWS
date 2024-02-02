@@ -36,4 +36,139 @@ This project focuses on only Phase 2 of the methodology listed in the previous m
 - ExeuctionHost    //Requires At least two instances, used within this proejct is 3 Instances, all three instances require NFS Common and mounting folders from SubmissionHost instance
 - RDS Server     
 
-## **5) Results and Discussions**
+This section focuses on the infrastructure setup for the HTCondor cluster, the following table is the number of instances required for the function of this study:
+Name	Role	Size	Required(?)
+Central_Manager	HTCondor Central Manger	Micro	Yes
+Submission_Host	HTCondor Submission Host	Nano	Yes
+Execution_Host_1	HTCondor Execution Host	Small	Yes
+Execution_Host_2	HTCondor Execution Host	Small	No
+Execution_Host_3	HTCondor Execution Host	Small	No
+
+ The following are the requirements for the systems to function. The declaration of roles within the HTCondor system must be done during the setup of the instances and will be covered in the following section.
+
+**************
+## 4.1 Central Manager
+**************
+ The central managers role in the cluster is to manage the system resources as well as assigning jobs according to free execution hosts, the overall memory needed in this role is low, which provides a reason for the small memory size allocated to the instance. After the Central Manager node is created, it can be accessed via the EC2 terminal to initiate the setup phase. The following code is required to install HTCondor and set the role as central manager:
+
+
+**************
+
+HTCondor
+
+**************
+sudo apt-get update
+
+curl -fsSL https://get.htcondor.org | sudo /bin/bash -s -- --no-dry-run --password "abc123" --central-manager <Private IP Address>
+
+sudo systemctl restart condor
+
+NFS Setup
+
+sudo apt install nfs-kernel-server
+
+mkdir condor_shared
+
+sudo vim /etc/exports # add /home/ubuntu/condor_shared *(rw,sync,no_subtree_check)
+
+sudo exportfs -ra	
+**************
+Github Clone
+**************
+git clone <repository https>
+
+git config credential.helper store
+
+git pull
+**************
+Create commit.sh file
+git add .
+
+git commit -m “Committed from EC2” 
+
+git push
+ **************
+## 4.2 Submission Host
+**************
+The submission host will create the job request to be submitted to the execution hosts. It requires the central mangers private IP to form the cluster and also requires a job.sub file to submit the jobs.
+HTCondor
+**************
+sudo apt-get update
+
+curl -fsSL https://get.htcondor.org | sudo /bin/bash -s -- --no-dry-run --password "abc123" --submit <Central Manager IP>
+
+sudo systemctl restart condor
+
+NFS Setup
+sudo apt install nfs-common
+
+mkdir mounter
+
+sudo mount 172.31.54.189:/home/ubuntu/condor_shared /home/ubuntu/mounter
+
+Create job.sub file
+vim job.sub
+
+**************
+executable = $(filename)
+
+output = output_$(Process).txt
+
+error = error_$(Process).txt
+
+log = log.txt
+requirements = True
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+transfer_input_files = /home/ubuntu/mounter/local_dataset.xlsx
+
+filename = script1.py
+
+queue
+
+filename = script2.py
+
+queue
+
+filename = script3.py
+
+queue
+****************
+ 
+## 4.3 Execution Host
+
+**************
+
+The execution host are the workers of the cluster and will do the bulk of the processes. It requires the Central Managers IP to connect to the cluster.
+HTCondor
+**************
+sudo apt-get update
+
+curl -fsSL https://get.htcondor.org | sudo /bin/bash -s -- --no-dry-run --password "abc123" --execute <Central Manager IP>
+
+sudo systemctl restart condor
+
+NFS Setup
+sudo apt install nfs-common
+
+mkdir mounter
+
+sudo mount 172.31.54.189:/home/ubuntu/condor_shared /home/ubuntu/mounter
+**************
+
+Python Setup
+**************
+Due to the scripts being built for Python3, some python packages are required to be installed on the execution hosts before being able to run.
+sudo apt install python3-pip
+**************
+
+sudo pip3 install nltk
+sudo pip3 install nltk
+sudo pip3 install seaborn
+sudo pip3 install wordcloud
+sudo pip3 install sklearn
+sudo pip3 install scikit-learn
+sudo pip3 install xgboost
+**************
+
+sudo mount 172.31.54.189:/home/ubuntu/condor_shared /home/ubuntu/mounter
